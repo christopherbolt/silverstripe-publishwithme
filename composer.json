@@ -1,0 +1,20 @@
+{
+    "name": "christopherbolt/silverstripe-publishwithme",
+    "type": "silverstripe-module",
+    "description": "Publishes/Unpublishes versioned DataObjects that are attached to a Page or parent DataObject when the parent object is published.",
+    "homepage": "http://github.com/christopherbolt/publishwithme",
+    "authors": [
+        {
+            "name": "Chris Bolt",
+            "email": "chris@christopherbolt.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "silverstripe/cms": "3.2.*",
+    	"silverstripe/framework": "3.2.*"
+    },
+	"extra": {
+        "installer-name": "publishwithme"
+    }
+}
