@@ -22,7 +22,8 @@ class PublishWithMe extends DataExtension {
 	 * @return array
 	 */
 	private function getItemsToPublish() {
-		$this->owner->flushCache();// Ensure that results are not cached
+		
+		//$this->owner->flushCache();// Ensure that results are not cached
 		$objects = array(); // list of items to manage
 		$item = $this->owner;
 		$fields = $item->config()->get('publish_with_me');
@@ -32,13 +33,13 @@ class PublishWithMe extends DataExtension {
 			$many_many = $item->config()->get('many_many');
 			foreach ($fields as $f) {
 				if (isset($has_one[$f])) {
-					$object = $item->$f();
+					$object = $item->obj($f);
 					if ($object && $object->exists()) $objects[] = $object;
 				} else if (isset($has_many[$f]) || isset($many_many[$f])) {
 					if ($item::has_extension('TranslatableUtility')) {
-						$set = $item->Master()->$f();
+						if ($item->Master()->hasMethod($f)) $set = $item->Master()->$f();
 					} else {
-						$set = $item->$f();
+						if ($item->hasMethod($f)) $set = $item->$f();
 					}
 					if ($set) { 
 						foreach ($set as $object) {
@@ -102,6 +103,7 @@ class PublishWithMe extends DataExtension {
 	 * @return void
 	 */
 	public function onAfterUnpublish($page) {
+		if (!$page->hasMethod('getItemsToPublish')) return;		
 		foreach($page->getItemsToPublish() as $field) {
 			if ($field->hasMethod('doDeleteFromStage')) {
 				$field->doDeleteFromStage('Live');
@@ -152,7 +154,7 @@ class PublishWithMe extends DataExtension {
 		$stageVersion = Versioned::get_versionnumber_by_stage($object->ClassName, 'Stage', $object->ID);
 		$liveVersion = Versioned::get_versionnumber_by_stage($object->ClassName, 'Live', $object->ID);
 		
-		return (($stageVersion && $stageVersion != $liveVersion) || !$stageVersion || (($object->hasMethod('getIsModifiedOnStage')) && $object->getIsModifiedOnStage(false)));
+		return (($stageVersion && $stageVersion != $liveVersion) || (($object->hasMethod('getIsModifiedOnStage')) && $object->getIsModifiedOnStage(false)));
 	}
 	
 	/**
