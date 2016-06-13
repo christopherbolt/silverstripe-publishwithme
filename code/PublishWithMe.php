@@ -238,14 +238,14 @@ class PublishWithMe extends DataExtension {
 		// This needs to be move to the object itself I think ??
 		if (class_exists('BetterButtonAction')) {
 			$create = Config::inst()->get("BetterButtonsActions", "create");
-			$edit = Config::inst()->get("BetterButtonsActions", "create");
+			$edit = Config::inst()->get("BetterButtonsActions", "edit");
 			  
 			$create['BetterButton_SaveDraft'] = false;
 			$create['BetterButton_Publish'] = false;
 			$edit['BetterButton_SaveDraft'] = false;
 			$edit['BetterButton_Publish'] = false;
 			$edit['Group_Versioning'] = false;
-			$edit['BetterButton_Delete'] = false;
+			//$edit['BetterButton_Delete'] = false;
 			$edit['BetterButtonFrontendLinksAction'] = false;
 			
 			Config::inst()->update("BetterButtonsActions", "versioned_create", $create);
