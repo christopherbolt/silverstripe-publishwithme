@@ -60,7 +60,7 @@ class PublishWithMe extends DataExtension {
 	 *
 	 * @return void
 	 */
-	public function onAfterPublish($original) {
+	public function onAfterPublish($original=null) {
 		// store all stage items
 		$stage_item_ids = array();
 		$oldMode = Versioned::get_reading_mode();
@@ -236,7 +236,7 @@ class PublishWithMe extends DataExtension {
 	public function updateCMSFields(FieldList $fields) {
 		// Better buttons support, since items should be published with the page we remove BetterButtons versioning buttons?
 		// This needs to be move to the object itself I think ??
-		if (class_exists('BetterButtonAction')) {
+		if (class_exists('BetterButtonAction') && !$this->owner->config()->dont_hide_publish_buttons) {
 			$create = Config::inst()->get("BetterButtonsActions", "create");
 			$edit = Config::inst()->get("BetterButtonsActions", "edit");
 			  
