@@ -61,6 +61,9 @@ class PublishWithMe extends DataExtension {
 	 * @return void
 	 */
 	public function onAfterPublish($original=null) {
+		
+		if ($this->owner->isChanged('ClassName')) return; // We cannot proceed if page type has changed
+		
 		// store all stage items
 		$stage_item_ids = array();
 		$oldMode = Versioned::get_reading_mode();
