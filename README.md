@@ -3,6 +3,9 @@ Publishes/Un-publishes versioned DataObjects that are attached to a Page when th
 
 Lets imagine that you have a staff profiles page where each staff member is a DataObject in a has_many relation. Without any versioning edits to a staff member would be published immediately breaking workflow approval processes and breaking the draft, publish and history functionality of Silverstripe. Or if they did have the Versioned extension they would need to be published independantly from the page which complicates workflow. This module allows those edits to be published when the page is published. Also supports un-publishing, revert to live and history rollback with the page. This allows objects to behave as if they are part of the page.
 
+## Requirements ##
+Silverstripe 3.x, see 1.1 branch for 4.x
+
 ## Usage ##
 Add the PublishWithMe extension to your page (or parent DataObject):
 ```
@@ -26,7 +29,7 @@ If your dataobjects themselves contain relations that should be published with t
 
 ### Installation ###
 ```
-composer require christopherbolt/silverstripe-publishwithme
+composer require christopherbolt/silverstripe-publishwithme 1.0.x
 ```
 
 ### Credits ###
