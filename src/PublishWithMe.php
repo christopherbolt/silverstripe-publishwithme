@@ -5,6 +5,7 @@ namespace ChristopherBolt\PublishWithMe;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Versioned\Versioned;
+use SilverStripe\Core\Config\Config;
 
 /**
  * PublishWithMe
@@ -123,7 +124,7 @@ class PublishWithMe extends DataExtension {
 	public function updateCMSFields(FieldList $fields) {
 		// Better buttons support, since items should be published with the page we remove BetterButtons versioning buttons?
 		// This needs to be move to the object itself I think ??
-		if (class_exists('BetterButtonAction') && !$this->owner->config()->dont_hide_publish_buttons) {
+		if (class_exists('UncleCheese\BetterButtons\Actions\BetterButtonAction') && !$this->owner->config()->dont_hide_publish_buttons) {
 			$create = Config::inst()->get("BetterButtonsActions", "create");
 			$edit = Config::inst()->get("BetterButtonsActions", "edit");
 			  
@@ -135,8 +136,8 @@ class PublishWithMe extends DataExtension {
 			//$edit['BetterButton_Delete'] = false;
 			$edit['BetterButtonFrontendLinksAction'] = false;
 			
-			Config::inst()->update("BetterButtonsActions", "versioned_create", $create);
-			Config::inst()->update("BetterButtonsActions", "versioned_edit", $edit);
+			Config::modify()->set("BetterButtonsActions", "versioned_create", $create);
+			Config::modify()->set("BetterButtonsActions", "versioned_edit", $edit);
 		}
 	}
 }
