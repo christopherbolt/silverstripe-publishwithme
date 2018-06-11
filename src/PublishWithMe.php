@@ -117,27 +117,4 @@ class PublishWithMe extends DataExtension {
 			$publish->setTitle(_t('SilverStripe\CMS\Model\SiteTree.BUTTONSAVEPUBLISH', 'Save & publish'));
 		}
 	}
-
-	/**
-	 * @param FieldList
-	 */
-	public function updateCMSFields(FieldList $fields) {
-		// Better buttons support, since items should be published with the page we remove BetterButtons versioning buttons?
-		// This needs to be move to the object itself I think ??
-		if (class_exists('UncleCheese\BetterButtons\Actions\BetterButtonAction') && !$this->owner->config()->dont_hide_publish_buttons) {
-			$create = Config::inst()->get("BetterButtonsActions", "create");
-			$edit = Config::inst()->get("BetterButtonsActions", "edit");
-			  
-			$create['BetterButton_SaveDraft'] = false;
-			$create['BetterButton_Publish'] = false;
-			$edit['BetterButton_SaveDraft'] = false;
-			$edit['BetterButton_Publish'] = false;
-			$edit['Group_Versioning'] = false;
-			//$edit['BetterButton_Delete'] = false;
-			$edit['BetterButtonFrontendLinksAction'] = false;
-			
-			Config::modify()->set("BetterButtonsActions", "versioned_create", $create);
-			Config::modify()->set("BetterButtonsActions", "versioned_edit", $edit);
-		}
-	}
 }
