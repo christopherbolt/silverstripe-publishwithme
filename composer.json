@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "silverstripe/cms": "^4.0 || ^5.0 || ^6.0"
+        "silverstripe/cms": "^4.0 || ^5.0"
     },
 	"extra": {
         "installer-name": "publishwithme",
