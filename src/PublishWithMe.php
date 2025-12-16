@@ -2,7 +2,7 @@
 
 namespace ChristopherBolt\PublishWithMe;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\Core\Config\Config;
@@ -19,7 +19,7 @@ use SilverStripe\Core\Config\Config;
  * @author <chris@christopherbolt.com>
  **/
 
-class PublishWithMe extends DataExtension {
+class PublishWithMe extends Extension {
 	
 	private static $owns = array();
 	
